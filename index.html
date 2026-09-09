@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ArrumaMeuCSV</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+</head>
+
+<body>
+  <main class="container">
+    <section class="hero">
+      <span class="badge">100% grátis para analisar</span>
+
+      <h1>Descubra os problemas do seu CSV em segundos</h1>
+
+      <p>
+        Encontre dados faltantes, duplicados e inconsistências antes de usar
+        seu arquivo em Excel, Power BI ou Python.
+      </p>
+    </section>
+
+    <section class="card">
+      <label class="upload">
+        <strong>Selecione seu arquivo CSV</strong>
+        <span>Seu arquivo é processado diretamente no navegador.</span>
+
+        <input
+          type="file"
+          id="csvFile"
+          accept=".csv,text/csv"
+        />
+      </label>
+
+      <button id="analyzeBtn">Analisar CSV</button>
+
+      <p id="status"></p>
+    </section>
+
+    <section id="results" class="results hidden">
+      <h2>Diagnóstico do arquivo</h2>
+
+      <div class="grid">
+        <div class="metric">
+          <span>Linhas</span>
+          <strong id="rows">0</strong>
+        </div>
+
+        <div class="metric">
+          <span>Colunas</span>
+          <strong id="columns">0</strong>
+        </div>
+
+        <div class="metric">
+          <span>Campos vazios</span>
+          <strong id="missing">0</strong>
+        </div>
+
+        <div class="metric">
+          <span>Linhas duplicadas</span>
+          <strong id="duplicates">0</strong>
+        </div>
+      </div>
+
+      <div class="details">
+        <h3>Problemas encontrados</h3>
+        <div id="problems"></div>
+      </div>
+
+      <div class="cta">
+        <h2>Seu arquivo precisa de correção?</h2>
+
+        <p>
+          Eu limpo, organizo e devolvo seu CSV pronto para análise por
+          <strong>R$20</strong>.
+        </p>
+
+        <a
+          id="whatsappBtn"
+          class="whatsapp"
+          href="#"
+          target="_blank"
+        >
+          Quero corrigir meu CSV por R$20
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

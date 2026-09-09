@@ -1,0 +1,148 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f5f7fb;
+  color: #16181d;
+}
+
+.container {
+  width: min(900px, 92%);
+  margin: 0 auto;
+  padding: 60px 0;
+}
+
+.hero {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.badge {
+  display: inline-block;
+  background: #e8f5e9;
+  color: #188038;
+  padding: 8px 14px;
+  border-radius: 30px;
+  font-size: 14px;
+}
+
+h1 {
+  font-size: clamp(32px, 6vw, 55px);
+  margin: 18px 0 10px;
+}
+
+.hero p {
+  max-width: 650px;
+  margin: auto;
+  font-size: 18px;
+  line-height: 1.6;
+  color: #60646c;
+}
+
+.card,
+.results {
+  background: white;
+  padding: 30px;
+  border-radius: 18px;
+  box-shadow: 0 8px 30px rgba(0,0,0,.08);
+}
+
+.upload {
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  border: 2px dashed #ccd1da;
+  border-radius: 14px;
+  cursor: pointer;
+  gap: 8px;
+}
+
+.upload input {
+  margin-top: 15px;
+}
+
+button {
+  width: 100%;
+  border: 0;
+  padding: 16px;
+  font-size: 17px;
+  font-weight: bold;
+  margin-top: 20px;
+  border-radius: 12px;
+  cursor: pointer;
+  background: #151515;
+  color: white;
+}
+
+.hidden {
+  display: none;
+}
+
+.results {
+  margin-top: 25px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+}
+
+.metric {
+  background: #f5f7fb;
+  padding: 20px;
+  border-radius: 12px;
+}
+
+.metric span {
+  display: block;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.metric strong {
+  font-size: 28px;
+}
+
+.details {
+  margin-top: 30px;
+}
+
+.problem {
+  padding: 12px 15px;
+  background: #fff5f5;
+  border-radius: 10px;
+  margin-bottom: 8px;
+}
+
+.good {
+  background: #edf8ef;
+}
+
+.cta {
+  margin-top: 35px;
+  padding: 25px;
+  background: #151515;
+  color: white;
+  border-radius: 16px;
+}
+
+.whatsapp {
+  display: inline-block;
+  text-decoration: none;
+  background: #25d366;
+  color: white;
+  padding: 15px 20px;
+  border-radius: 10px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+@media (max-width: 700px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
