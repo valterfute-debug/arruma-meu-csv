@@ -1,93 +1,125 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ArrumaMeuCSV</title>
-  <link rel="stylesheet" href="style.css" />
-  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Analise a qualidade do seu CSV gratuitamente. Encontre campos vazios, duplicatas e inconsistências, com processamento local no navegador.">
+<meta name="referrer" content="no-referrer">
+<meta name="theme-color" content="#126345">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="ArrumaMeuCSV — menos bagunça, mais confiança nos dados">
+<meta property="og:description" content="Um diagnóstico gratuito do seu CSV. Sem cadastro, com análise local no navegador.">
+<title>ArrumaMeuCSV — Análise gratuita de qualidade de CSV</title>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="style.css">
+<script src="app-config.js" defer></script>
+<script src="script.js" defer></script>
+<script src="auth.js" defer></script>
+<script src="pro.js" defer></script>
 </head>
-
 <body>
-  <main class="container">
-    <section class="hero">
-      <span class="badge">100% grátis para analisar</span>
+<a class="skip" href="#analisar">Pular para a análise</a>
+<header class="header wrap"><a class="brand" href="#" aria-label="ArrumaMeuCSV, início"><span class="logo" aria-hidden="true">▦</span>Arruma<span>MeuCSV</span></a><nav aria-label="Principal"><a href="#como-funciona">Como funciona</a><a href="#planos">Planos</a><button id="accountNavBtn" class="button small account-nav" data-open-account="login">Entrar / Criar conta</button><a class="button small" href="#analisar">Analisar meu CSV <span aria-hidden="true">↗</span></a></nav></header>
+<main>
+<section class="hero wrap">
+<div><p class="eyebrow"><span class="dot"></span> SEUS DADOS MERECEM UM BOM COMEÇO</p>
+<h1>Menos bagunça.<br>Mais confiança<br><em>no seu CSV.</em></h1>
+<p class="lead">Encontre campos vazios, duplicatas e possíveis inconsistências antes de levar seus dados para a próxima análise.</p>
+<a class="button" href="#analisar">Analisar meu CSV grátis <span aria-hidden="true">↗</span></a>
+<p class="micro">Sem cadastro · Sem enviar seu arquivo · Sem cartão</p>
+</div>
+<div class="sample" aria-label="Exemplo ilustrativo de diagnóstico">
+<div class="sample-top"><span><span class="dot"></span> DIAGNÓSTICO DO CSV</span><span>Exemplo ilustrativo</span></div>
+<div class="sample-score"><div class="ring">87<small>/ 100</small></div><div><span class="tag">Um bom começo</span><h2>Dados mais claros.<br>Decisões melhores.</h2></div></div>
+<div class="sample-row"><span>Linhas analisadas</span><strong>1.240</strong></div><div class="sample-row"><span>Campos vazios</span><strong class="amber">12 encontrados</strong></div><div class="sample-row"><span>Linhas duplicadas</span><strong class="amber">3 encontradas</strong></div>
+<p class="sample-note">✓ Saiba o que revisar antes de começar.</p>
+</div>
+</section>
+<div class="tools-strip wrap"><span>DO CSV PARA O SEU DIA A DIA</span><strong>Excel</strong><span class="separator">/</span><strong>Power BI</strong><span class="separator">/</span><strong>Python</strong><span class="separator">/</span><strong>Seu próximo projeto</strong></div>
+<section id="analisar" class="section wrap">
+<div class="section-title"><div><p class="eyebrow">01 / EXPERIMENTE AGORA</p><h2>Seu diagnóstico começa aqui.</h2></div><p>Escolha um arquivo. Nós ajudamos<br>a encontrar o que precisa de atenção.</p></div>
+<div class="analyzer panel">
+<ol class="flow-steps" aria-label="Etapas da análise"><li id="step1" aria-current="step"><b>1</b> Escolher arquivo</li><li id="step2"><b>2</b> Analisar</li><li id="step3"><b>3</b> Ver diagnóstico</li></ol>
+<p id="nextAction" class="next-action">Comece escolhendo seu arquivo CSV abaixo.</p>
+<div id="dropZone" class="drop-zone"><span class="upload-icon" aria-hidden="true">↑</span><h3 id="uploadTitle">Arraste seu CSV para cá</h3><p>ou escolha um arquivo no seu dispositivo</p><button id="selectFileBtn" type="button" class="button secondary">Selecionar arquivo</button><input class="visually-hidden" type="file" id="csvFile" accept=".csv,text/csv" aria-describedby="fileHelp"><p id="fileHelp" class="micro">Até 50 MiB · CSV com vírgula, ponto e vírgula, tabulação ou barra vertical</p></div>
+<details id="importOptions" class="import-options"><summary>Opções de importação <span>Use se o arquivo não for reconhecido</span></summary><div class="upload-options"><div><label for="encoding">Codificação do arquivo</label><select id="encoding"><option value="utf-8">UTF-8 (padrão)</option><option value="windows-1252">Windows-1252 (Excel antigo)</option></select></div><div><label for="delimiter">Separador</label><select id="delimiter"><option value="">Detectar automaticamente</option><option value=",">Vírgula (,)</option><option value=";">Ponto e vírgula (;)</option><option value="\t">Tabulação</option><option value="|">Barra vertical (|)</option></select></div></div>
+</details><div class="file-bar"><p id="fileInfo">Nenhum arquivo selecionado</p><button id="analyzeBtn" class="button" disabled>Analisar CSV <span aria-hidden="true">→</span></button><button id="cancelBtn" class="button secondary" hidden>Cancelar</button></div>
+<div id="progressPanel" class="progress-panel" hidden><div><strong id="progressPhase">Lendo arquivo</strong><span id="progressValue"></span></div><progress id="analysisProgress" max="100" value="0" aria-label="Progresso da fase atual"></progress><small>Cada fase mostra seu próprio progresso. Você pode cancelar a qualquer momento.</small></div>
+<p id="status" role="status" aria-live="polite"></p><p class="privacy-inline">◈ A análise acontece neste navegador. O arquivo não é enviado ao site.</p>
+</div>
+<noscript><p class="notice">Ative o JavaScript no navegador para analisar seu CSV localmente.</p></noscript>
+<section id="results" hidden aria-labelledby="resultTitle">
+<div class="section-title"><div><p class="eyebrow">SEU DIAGNÓSTICO</p><h2 id="resultTitle" tabindex="-1">Uma visão clara do seu arquivo.</h2></div><p id="resultFile"></p></div>
+<div class="result-actions"><a class="button secondary" href="#columnDetails">Explorar colunas ↓</a><button id="newAnalysisBtn" class="button secondary">Analisar outro arquivo</button></div>
+<div id="importSummary" class="panel import-summary" hidden><h3>Como interpretamos este arquivo</h3><ul id="importNotes"></ul></div>
+<div class="result-top"><div class="score-card"><span>Score de qualidade</span><strong id="score"></strong><p id="scoreLabel"></p><small>Indicador heurístico, não uma certificação.</small></div><div id="metrics" class="metrics"></div></div>
+<details class="panel score-details"><summary>Como calculamos o score?</summary><p>Começamos em 100. Subtraímos até 40 pontos por células ausentes, 25 por linhas duplicadas, 20 por colunas totalmente vazias e 15 por possíveis inconsistências numéricas. Cada parcela é proporcional à taxa correspondente. Arredondamos o resultado e limitamos entre 0 e 100.</p><p id="scoreFormula"></p><p>Colunas constantes e problemas de cabeçalho são avisos e não descontam pontos. Ausências em colunas vazias entram em duas parcelas para destacar a falta completa de informação. O indicador não verifica exatidão, significado, datas ou regras do seu negócio.</p></details>
+<div class="diagnosis-grid"><div class="panel"><h3>O que encontramos</h3><ul id="problems"></ul></div><div class="panel"><h3>Como melhorar</h3><ul id="suggestions"></ul></div></div>
+<div id="columnDetails" class="panel"><h3>Coluna por coluna</h3><label for="columnSearch">Encontrar uma coluna</label><input id="columnSearch" type="search" placeholder="Busque por nome, trimestre ou mês…" class="column-search"><div class="pagination"><button id="prevColumns" class="button secondary" aria-label="Página anterior de colunas">← Anterior</button><span id="columnPage" role="status"></span><button id="nextColumns" class="button secondary" aria-label="Próxima página de colunas">Próxima →</button></div><p class="muted">Estatísticas consideram apenas valores numéricos reconhecidos. Deslize as tabelas para ver todas as colunas.</p><div class="table-scroll" tabindex="0" role="region" aria-label="Diagnóstico por coluna"><table id="columnTable"></table></div></div>
+<div class="panel"><h3>Uma prévia dos seus dados</h3><p class="muted">Primeiras 10 linhas e até 12 colunas. Textos longos são abreviados somente nesta prévia.</p><div class="table-scroll" tabindex="0" role="region" aria-label="Prévia do CSV"><table id="previewTable"></table></div></div>
+<section id="proTools" class="panel pro-tools" aria-labelledby="proTitle">
+<div class="section-title"><div><span class="tag">PRO · R$49,99/MÊS</span><h3 id="proTitle">Do diagnóstico ao CSV organizado.</h3><p>Escolha os ajustes. Revise o resumo antes de baixar.</p></div><button id="unlockProBtn" class="button secondary" data-open-account="signup">Conhecer o Pro ↗</button></div>
+<form id="proForm">
+<fieldset><legend>O que você quer ajustar?</legend>
+<label class="check-line"><input id="cleanTrim" type="checkbox" checked>Remover espaços no início e no fim dos valores</label>
+<label class="check-line"><input id="cleanDuplicates" type="checkbox" checked>Remover linhas idênticas após os ajustes</label>
+<label class="check-line"><input id="cleanEmptyColumns" type="checkbox">Remover colunas totalmente vazias</label>
+<label class="check-line"><input id="cleanHeaders" type="checkbox">Padronizar cabeçalhos: sem acentos, com sublinhados e nomes únicos</label>
+</fieldset>
+<label for="exportDelimiter">Separador do arquivo exportado</label><select id="exportDelimiter"><option value=";">Ponto e vírgula (comum no Excel brasileiro)</option><option value=",">Vírgula (comum em Python e outras ferramentas)</option></select>
+<p class="muted">Até 5 MiB por limpeza, 50 mil linhas, 2.000 colunas e 1 milhão de células. O original é preservado. Campos ausentes não serão preenchidos.</p>
+<label class="check-line consent-box"><input id="cleanConsent" type="checkbox" required>Autorizo enviar este CSV ao servidor de limpeza Pro, operado no Supabase. O conteúdo será processado para devolver o resultado, sem salvar o arquivo no banco.</label>
+<button id="cleanBtn" class="button" type="submit">Gerar prévia da limpeza Pro →</button>
+</form><p id="proStatus" class="feedback" role="status" aria-live="polite"></p>
+<div id="cleanResult" hidden><h3>Revise as alterações</h3><ul id="cleanSummary"></ul><div class="table-scroll" tabindex="0" role="region" aria-label="Prévia do CSV limpo"><table id="cleanPreview"></table></div><ul id="cleanNotes"></ul><a id="downloadCleanBtn" class="button" download>Baixar CSV limpo ↓</a><p class="micro">A prévia mostra até 5 linhas e 8 colunas. O download contém o resultado completo. Fórmulas potenciais são exportadas como texto por segurança.</p></div>
+</section>
 
-      <h1>Descubra os problemas do seu CSV em segundos</h1>
+<div class="offer"><div><p class="eyebrow">UM PRÓXIMO PASSO, SE VOCÊ PRECISAR</p><h2>Quer receber seu CSV limpo<br>e pronto para uso?</h2><p>Limpeza com revisão humana e escopo combinado antes de começar.</p><ul><li>Remoção de duplicatas e organização</li><li>Tratamento de ausências quando adequado</li><li>Padronização básica para Excel, Power BI ou Python</li></ul></div><div class="offer-action"><span>A partir de</span><p class="price">R$20</p><button id="whatsappBtn" class="button">Conversar no WhatsApp ↗</button><p class="micro">Combine o escopo e o prazo antes de pagar.</p></div><p id="whatsappNotice" class="offer-notice" role="status"></p><p class="offer-notice">Ao abrir o WhatsApp, você acessa um serviço externo. Nenhum arquivo ou conteúdo do CSV é anexado automaticamente. Compartilhe apenas o que decidir enviar.</p></div>
+</section>
+</section>
+<section id="planos" class="section wrap">
+<div class="section-title"><div><p class="eyebrow">ESCOLHA SEU PRÓXIMO PASSO</p><h2>Entenda grátis. Organize com o Pro.</h2></div><p>Sem exigir assinatura para analisar seu CSV.</p></div>
+<div class="pricing-grid">
+<article class="panel plan-card"><span class="tag">Para começar</span><h3>Gratuito</h3><p class="plan-price">R$0</p><p>Descubra o que precisa de atenção.</p><ul><li>Diagnóstico completo e score de qualidade</li><li>Estatísticas, busca e prévia das colunas</li><li>Análise local de arquivos até 50 MiB</li><li>Sem cadastro ou cartão</li></ul><a class="button secondary" href="#analisar">Analisar gratuitamente</a></article>
+<article class="panel plan-card featured"><span class="tag">Para trabalhar melhor</span><h3>ArrumaMeuCSV Pro</h3><p class="plan-price">R$49,99<span>/mês</span></p><p>Ferramentas para limpar e exportar sua base.</p><ul><li>Remoção de linhas duplicadas</li><li>Ajuste de espaços e cabeçalhos padronizados</li><li>Remoção opcional de colunas vazias</li><li>Prévia das alterações e exportação CSV UTF-8</li></ul><button class="button" data-open-account="signup">Criar conta e conhecer o Pro →</button><p class="micro">Renovação mensal automática. Cancele a renovação na sua conta. Limpeza: até 5 MiB, 50 mil linhas e 1 milhão de células por arquivo.</p></article>
+</div>
+<p class="muted">A limpeza Pro exige envio autorizado ao servidor. O arquivo não é salvo no banco. Não inclui revisão humana nem preenchimento automático de dados ausentes. O serviço humano por WhatsApp continua sendo contratado separadamente.</p>
+</section>
+<section id="conta" class="section wrap" hidden aria-labelledby="accountTitle">
+<div class="section-title"><div><p class="eyebrow">MINHA CONTA</p><h2 id="accountTitle">Seu espaço de trabalho.</h2><p id="accountIdentity"></p></div><button id="signOutBtn" class="button secondary">Sair da conta</button></div>
+<div class="panel account-plan"><div><span id="planBadge" class="tag">Verificando plano</span><h3 id="planTitle">Conferindo sua assinatura…</h3><p id="planDescription"></p><a class="button secondary" href="#analisar">Escolher CSV para trabalhar →</a></div><div class="account-controls"><button id="refreshPlanBtn" class="button secondary">Atualizar assinatura</button><button id="cancelPlanBtn" class="text-button" hidden>Cancelar renovação</button></div></div>
+<div id="subscribePanel" class="panel"><h3>Pro por R$49,99/mês</h3><p>O pagamento é concluído no Mercado Pago. Seu acesso será liberado após a confirmação da cobrança.</p><label class="check-line"><input id="recurringConsent" type="checkbox">Entendo que a assinatura custa R$49,99 por mês e renova automaticamente até eu cancelar.</label><button id="subscribeBtn" class="button">Continuar para o pagamento ↗</button></div>
+<p id="accountStatus" class="feedback" role="status" aria-live="polite"></p>
+</section>
+<dialog id="authDialog" aria-labelledby="authTitle" class="auth-dialog">
+<div class="dialog-heading"><a class="brand" href="#planos">Arruma<span>MeuCSV</span></a><button id="closeAuthBtn" class="icon-button" aria-label="Fechar cadastro ou login">×</button></div>
+<p class="eyebrow">SEU PRÓXIMO PASSO COM OS DADOS</p><h2 id="authTitle">Crie sua conta.</h2><p id="authDescription">O cadastro é gratuito. A assinatura só começa após o pagamento.</p>
+<div id="authTabs" class="auth-tabs"><button type="button" id="signupTab" aria-pressed="true">Criar conta</button><button type="button" id="loginTab" aria-pressed="false">Já tenho conta</button></div>
+<form id="authForm">
+<div id="nameField"><label for="accountName">Nome completo</label><input id="accountName" name="name" autocomplete="name" minlength="2" maxlength="100" required></div>
+<div id="emailField"><label for="accountEmail">E-mail</label><input id="accountEmail" name="email" type="email" autocomplete="email" maxlength="254" required></div>
+<div id="phoneField"><label for="accountPhone">Telefone com DDI e DDD</label><input id="accountPhone" name="tel" type="tel" autocomplete="tel" placeholder="+55 11 99999-9999" maxlength="24" aria-describedby="phoneHelp" required><small id="phoneHelp">Usado no seu cadastro. Não enviamos SMS de verificação nem mensagens de marketing automaticamente.</small></div>
+<div id="passwordField"><label for="accountPassword">Senha</label><div class="password-control"><input id="accountPassword" name="password" type="password" autocomplete="new-password" minlength="12" maxlength="128" aria-describedby="passwordHelp" required><button id="togglePasswordBtn" type="button" aria-pressed="false" aria-label="Mostrar senha">Mostrar</button></div><small id="passwordHelp">Use pelo menos 12 caracteres. Você pode colar uma senha do seu gerenciador.</small></div>
+<div id="privacyField"><label class="check-line"><input id="accountPrivacy" type="checkbox" required>Li como meus dados de cadastro e meus arquivos serão tratados em <a href="#privacidade" id="authPrivacyLink">Privacidade</a>.</label></div>
+<button id="authSubmitBtn" class="button" type="submit">Criar minha conta</button>
+</form>
+<button id="forgotPasswordBtn" class="text-button">Esqueci minha senha</button><button id="resendEmailBtn" class="text-button" hidden>Reenviar confirmação de e-mail</button>
+<p id="authStatus" class="feedback" role="status" aria-live="polite"></p>
+</dialog>
 
-      <p>
-        Encontre dados faltantes, duplicados e inconsistências antes de usar
-        seu arquivo em Excel, Power BI ou Python.
-      </p>
-    </section>
-
-    <section class="card">
-      <label class="upload">
-        <strong>Selecione seu arquivo CSV</strong>
-        <span>Seu arquivo é processado diretamente no navegador.</span>
-
-        <input
-          type="file"
-          id="csvFile"
-          accept=".csv,text/csv"
-        />
-      </label>
-
-      <button id="analyzeBtn">Analisar CSV</button>
-
-      <p id="status"></p>
-    </section>
-
-    <section id="results" class="results hidden">
-      <h2>Diagnóstico do arquivo</h2>
-
-      <div class="grid">
-        <div class="metric">
-          <span>Linhas</span>
-          <strong id="rows">0</strong>
-        </div>
-
-        <div class="metric">
-          <span>Colunas</span>
-          <strong id="columns">0</strong>
-        </div>
-
-        <div class="metric">
-          <span>Campos vazios</span>
-          <strong id="missing">0</strong>
-        </div>
-
-        <div class="metric">
-          <span>Linhas duplicadas</span>
-          <strong id="duplicates">0</strong>
-        </div>
-      </div>
-
-      <div class="details">
-        <h3>Problemas encontrados</h3>
-        <div id="problems"></div>
-      </div>
-
-      <div class="cta">
-        <h2>Seu arquivo precisa de correção?</h2>
-
-        <p>
-          Eu limpo, organizo e devolvo seu CSV pronto para análise por
-          <strong>R$20</strong>.
-        </p>
-
-        <a
-          id="whatsappBtn"
-          class="whatsapp"
-          href="#"
-          target="_blank"
-        >
-          Quero corrigir meu CSV por R$20
-        </a>
-      </div>
-    </section>
-  </main>
-
-  <script src="script.js"></script>
-</body>
-</html>
+<section id="como-funciona" class="section soft"><div class="wrap"><p class="eyebrow">02 / SEM COMPLICAÇÃO</p><h2>Do arquivo à clareza. Em três passos.</h2><div class="steps"><article><span class="step-number">01</span><h3>Escolha seu CSV</h3><p>Exporte sua planilha e selecione o arquivo. Não precisa criar uma conta.</p></article><article><span class="step-number">02</span><h3>Entenda os problemas</h3><p>Veja ausências, duplicatas, estatísticas e sugestões em um diagnóstico fácil de ler.</p></article><article><span class="step-number">03</span><h3>Siga com confiança</h3><p>Faça os ajustes por conta própria ou solicite ajuda para limpar o arquivo.</p></article></div></div></section>
+<section class="section wrap benefits"><div><p class="eyebrow">03 / MENOS RETRABALHO</p><h2>Antes do dashboard.<br>Antes da dor de cabeça.</h2></div><div><article><h3>Encontre o que passa despercebido</h3><p>Um espaço em branco ou uma linha repetida pode distorcer sua análise. Comece pela revisão.</p></article><article><h3>Entenda sem precisar programar</h3><p>Um resumo direto para estudantes, analistas e pequenos negócios que trabalham com planilhas.</p></article><article><h3>Escolha seu próximo passo</h3><p>O diagnóstico é gratuito. A limpeza é um serviço opcional, combinado por WhatsApp.</p></article></div></section>
+<section id="privacidade" class="wrap privacy-card"><span class="privacy-symbol" aria-hidden="true">◈</span><div><p class="eyebrow">SEU ARQUIVO CONTINUA COM VOCÊ</p><h2>Dados seus. Análise no seu navegador.</h2><p>O diagnóstico gratuito acontece no navegador, sem envio do CSV. Na limpeza Pro, o arquivo só é enviado ao servidor no Supabase depois de sua autorização. O conteúdo é processado para devolver o resultado e não é salvo no banco de dados nem no localStorage.</p><p>Os contadores de análise ficam no localStorage. Ao entrar, tokens de sessão ficam no sessionStorage desta aba; sua senha não é salva pelo frontend. Nome, e-mail e telefone compõem seu cadastro no Supabase. O telefone não é verificado por SMS. O Mercado Pago recebe os dados necessários ao pagamento; o site não recebe seu cartão. Os provedores podem registrar metadados de acesso. Não usamos analytics externos.</p><button id="clearStats" class="text-button">Apagar contadores deste navegador</button><span id="statsStatus" role="status"></span></div></section>
+<section class="section wrap faq"><div><p class="eyebrow">04 / DÚVIDAS FREQUENTES</p><h2>Bom saber<br>antes de começar.</h2></div><div>
+<details><summary>A análise é mesmo gratuita?</summary><p>Sim, sem cadastro e sem limite comercial de análises. Cada arquivo deve ter até 50 MiB, 250 mil linhas, 2.000 colunas e 5 milhões de células para limitar o uso de memória.</p></details>
+<details><summary>Posso enviar um arquivo Excel?</summary><p>Salve a planilha como CSV UTF-8 no Excel e envie o arquivo .csv. Arquivos .xlsx não são aceitos. A primeira linha deve conter o cabeçalho. Relatórios trimestrais IBGE no formato reconhecido também podem conter títulos, cabeçalho em níveis e notas.</p></details>
+<details><summary>O arquivo é corrigido automaticamente?</summary><p>O diagnóstico gratuito aponta o que revisar. O Pro oferece ajustes automáticos que você escolhe, por R$49,99/mês, com prévia e download. Ele não preenche ausências nem substitui revisão humana. O serviço humano por WhatsApp é opcional e cobrado separadamente.</p></details>
+<details><summary>Como funciona a assinatura Pro?</summary><p>Custa R$49,99 por mês, com renovação automática pelo Mercado Pago. O acesso é liberado após pagamento confirmado. Na sua conta, você pode cancelar a renovação e continuar usando o período já pago. Um pagamento recusado não renova o acesso. Cadastro e cobrança precisam estar habilitados para contratar.</p></details>
+<details><summary>O que significa o score?</summary><p>É um indicador heurístico de completude, duplicação e consistência numérica. Um score alto não garante que os dados estejam corretos para o seu objetivo.</p></details>
+<details><summary>Como números e campos vazios são reconhecidos?</summary><p>Campos vazios ou só com espaços são ausentes. “NA”, “null” e zero são valores preenchidos. Aceitamos decimais com ponto ou vírgula, sem separador de milhar. Códigos com zeros à esquerda são texto. Uma coluna com ao menos 80% dos valores preenchidos numéricos é considerada numérica; os demais valores viram possíveis inconsistências.</p></details>
+<details><summary>E se meu CSV não for reconhecido?</summary><p>Confira a codificação, escolha o separador manualmente e exporte novamente. Aspas malformadas e linhas com quantidades diferentes de campos interrompem a análise para evitar um diagnóstico enganoso.</p></details>
+</div></section>
+</main>
+<footer class="wrap footer"><a class="brand" href="#">Arruma<span>MeuCSV</span></a><p>Um começo melhor para seus dados.</p><a href="#privacidade">Privacidade</a><a href="#analisar">Analisar grátis ↑</a></footer>
+</body></html>

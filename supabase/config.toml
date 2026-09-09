@@ -1,0 +1,14 @@
+project_id = "arrumameucsv"
+
+[auth]
+site_url = "http://localhost:8000"
+additional_redirect_urls = ["http://localhost:8000/"]
+minimum_password_length = 12
+
+[auth.email]
+enable_signup = true
+enable_confirmations = true
+
+[functions.saas]
+# O handler valida JWT de usuário nas rotas privadas e HMAC no webhook.
+verify_jwt = false
